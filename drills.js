@@ -92,79 +92,58 @@ function checkBST(t) {
 
 function thirdLargestHelper(t) {
   let array = [];
-  array.push(t.key)
+  array.push(t.key);
   if (t.left) {
-    array =  [...array, ...thirdLargestHelper(t.left)]
+    array =  [...array, ...thirdLargestHelper(t.left)];
   }
   if (t.right) {
-    array =  [...array, ...thirdLargestHelper(t.right)]
+    array =  [...array, ...thirdLargestHelper(t.right)];
   } 
   return array;
 }
 
 function thirdLargest(t) {
-  let sorted = thirdLargestHelper(t).sort()
-  return sorted[sorted.length-3]
+  let sorted = thirdLargestHelper(t).sort();
+  return sorted[sorted.length-3];
 }
 
 function isBalanced(t) {
   if (t.left === undefined || t.right === undefined) {
-    return true
+    return true;
   }
-  let left = findBSTHeight(t.left)
-  let right = findBSTHeight(t.right)
-  let difference = Math.abs(left - right)
+  let left = findBSTHeight(t.left);
+  let right = findBSTHeight(t.right);
+  let difference = Math.abs(left - right);
 
   if (difference > 1) {
-    return false 
+    return false; 
   } else {
-    return isBalanced(left) && isBalanced(right)
+    return isBalanced(left) && isBalanced(right);
   }
 }
 
 const arrayTest = [3, 5, 4, 6, 1, 0, 2];
+let myArr2 = [3, 1, 5, 2, 4, 6, 0];
 
-function createNewArray(arr, t = arr[0]) {
-  if (arr.length === 0) {
-    return array
+function orderArr(arr) {
+  let higher = [];
+  let lower = [];
+  if (arr.length < 2) {
+    return arr;
   }
-  let array = [];
-  array.push(t)  
-  let right = arr.find(number => number > t)
-  console.log(right)
-  if (right) {
-    arr.filter(number => number !== t)
-    console.log(arr)
-    array = [...array, ...createNewArray(arr, right)]
-  } 
-  
-  let left = arr.find(number => number < t)
-  if (left) {
-    arr.filter(number => number !== t)
-    array = [...array, ...createNewArray(arr, left)]
-  }
-  if (left === null) {
-    if (right === null) {
-      array = [...array, ...createNewArray(arr, t.parent)]
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < arr[0]) {
+      lower.push(arr[i]);
+    } else {
+      higher.push(arr[i]);
     }
   }
+  return [arr[0], ...orderArr(lower), ...orderArr(higher)];
 }
-//3, 5, 4, 6, 1, 0, 2 and 3, 1, 5, 2, 4, 6, 0
-//current number = t
-// tempArray = []
-//pop t off original array and push it to the temp array 
-//check the root is the same 
-    //arrayOne[0] === arrayTwo[0]
-//check arrayOne.length === arrayTwo.length
-//check.arrayOne.sum() === array.Two.sum()
-//check first right value is the same 
-    //array.find(number number > t) 
-    //indenticalBST(newNumber)
-//check first left value is the same 
-    //array.find(number number < root) 
-      //identicalBST(newNumber)
 
-//return tempArray
+function testSame(arr1, arr2) {
+  return JSON.stringify(orderArr(arr1)) === JSON.stringify(orderArr(arr2));
+}
 
 
 
@@ -204,19 +183,19 @@ function main() {
   bstChars.insert('O');
   bstChars.insert('N');
   let bstBalanced = new BinarySearchTree();
-  bstBalanced.insert(9)
-  bstBalanced.insert(7)
-  bstBalanced.insert(11)
-  bstBalanced.insert(5)
-  bstBalanced.insert(13)
-  bstBalanced.insert(3)
-  bstBalanced.insert(15)
+  bstBalanced.insert(9);
+  bstBalanced.insert(7);
+  bstBalanced.insert(11);
+  bstBalanced.insert(5);
+  bstBalanced.insert(13);
+  bstBalanced.insert(3);
+  bstBalanced.insert(15);
   // console.log(bstChars);
   // console.log(findBSTHeight(bstChars));
   // console.log(checkBST(bstNums));
   // console.log(thirdLargest(bstNums));
   // console.log(isBalanced(bstBalanced));
-  console.log(createNewArray(arrayTest))
+  console.log(testSame(arrayTest, myArr2));
 }
 
 
