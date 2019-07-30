@@ -107,6 +107,21 @@ function thirdLargest(t) {
   return sorted[sorted.length-3]
 }
 
+function isBalanced(t) {
+  if (t.left === undefined || t.right === undefined) {
+    return true
+  }
+  let left = findBSTHeight(t.left)
+  let right = findBSTHeight(t.right)
+  let difference = Math.abs(left - right)
+
+  if (difference > 1) {
+    return false 
+  } else {
+    return isBalanced(left) && isBalanced(right)
+  }
+}
+
 
 function main() {
   let bstNums = new BinarySearchTree();
@@ -132,10 +147,19 @@ function main() {
   bstChars.insert('I');
   bstChars.insert('O');
   bstChars.insert('N');
+  let bstBalanced = new BinarySearchTree();
+  bstBalanced.insert(9)
+  bstBalanced.insert(7)
+  bstBalanced.insert(11)
+  bstBalanced.insert(5)
+  bstBalanced.insert(13)
+  bstBalanced.insert(3)
+  bstBalanced.insert(15)
   // console.log(bstChars);
   // console.log(findBSTHeight(bstChars));
   // console.log(checkBST(bstNums));
-  console.log(thirdLargest(bstNums));
+  // console.log(thirdLargest(bstNums));
+  console.log(isBalanced(bstBalanced));
 }
 
 
