@@ -90,6 +90,24 @@ function checkBST(t) {
   return (isBSTLeft && isBSTRight);
 }
 
+function thirdLargestHelper(t) {
+  let array = [];
+  array.push(t.key)
+  if (t.left) {
+    array =  [...array, ...thirdLargestHelper(t.left)]
+  }
+  if (t.right) {
+    array =  [...array, ...thirdLargestHelper(t.right)]
+  } 
+  return array;
+}
+
+function thirdLargest(t) {
+  let sorted = thirdLargestHelper(t).sort()
+  return sorted[sorted.length-3]
+}
+
+
 function main() {
   let bstNums = new BinarySearchTree();
   bstNums.insert(3);
@@ -116,7 +134,10 @@ function main() {
   bstChars.insert('N');
   // console.log(bstChars);
   // console.log(findBSTHeight(bstChars));
-  console.log(checkBST(bstNums));
+  // console.log(checkBST(bstNums));
+  console.log(thirdLargest(bstNums));
 }
+
+
 
 main();
