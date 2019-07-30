@@ -72,18 +72,22 @@ function findBSTHeight(t) {
 }
 
 function checkBST(t) {
-  console.log(t);
+  let isBSTLeft = true;
+  let isBSTRight = true;
   if (t.left) {
     if (t.left.key < t.key) {
-      checkBST(t.left);
+      isBSTLeft = checkBST(t.left);
     } else {
-      return false;
+      isBSTLeft = false;
     }
   } if (t.right) {
-    checkBST(t.right);
-  } if (!t.left && !t.right) {
-    return true;
+    if (t.right.key > t.key) {
+      isBSTRight = checkBST(t.right);
+    } else {
+      isBSTRight = false;
+    }
   }
+  return (isBSTLeft && isBSTRight);
 }
 
 function main() {
